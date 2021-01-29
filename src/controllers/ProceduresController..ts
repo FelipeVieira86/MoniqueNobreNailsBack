@@ -1,21 +1,25 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import Procedures from '../models/Procedures';
+import { Procedures } from '../models';
 
 export default {
   async create(req: Request, res: Response): Promise<Response> {
-    const {
-      day, method, type, value, client,
-    } = req.body;
+    try {
+      const {
+        day, method, type, value, client,
+      } = req.body;
 
-    const proceduresRepository = getRepository(Procedures);
+      const proceduresRepository = getRepository(Procedures);
 
-    const newProcedure = proceduresRepository.create({
-      day, method, type, value, client,
-    });
+      const newProcedure = proceduresRepository.create({
+        day, method, type, value, client,
+      });
 
-    await proceduresRepository.save(newProcedure);
+      await proceduresRepository.save(newProcedure);
 
-    return res.status(201).json(newProcedure);
+      return res.status(201).json(newProcedure);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
   },
 };

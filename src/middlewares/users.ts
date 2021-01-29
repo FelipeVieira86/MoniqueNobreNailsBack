@@ -7,14 +7,14 @@ async function validateUserCreation(req: Request, res: Response, next: NextFunct
     email, login,
   } = req.body;
   const usersRepository = getRepository(Users);
-  const foundUserEmail = await usersRepository.findAndCount({ email });
-  const foundUserLogin = await usersRepository.findAndCount({ login });
+  const foundUserEmail = await usersRepository.findOne({ email });
+  const foundUserLogin = await usersRepository.findOne({ login });
 
-  if (foundUserEmail[1] !== 0) {
+  if (foundUserEmail) {
     return res.status(409).json({ error: 'email already registered' });
   }
 
-  if (foundUserLogin[1] !== 0) {
+  if (foundUserLogin) {
     return res.status(409).json({ error: 'username already registered' });
   }
 

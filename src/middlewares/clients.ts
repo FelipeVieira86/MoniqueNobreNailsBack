@@ -11,9 +11,9 @@ async function validateClientCreation(
     email,
   } = req.body;
   const clientsRepository = getRepository(Clients);
-  const foundUserEmail = await clientsRepository.findAndCount({ email });
+  const foundUserEmail = await clientsRepository.findOne({ email });
 
-  if (foundUserEmail[1] !== 0) {
+  if (foundUserEmail) {
     return res.status(409).json({ error: 'email already registered' });
   }
 

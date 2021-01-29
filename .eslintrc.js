@@ -12,11 +12,12 @@ module.exports = {
     },
   rules: {
     // "consistent-return": "off",
+    "no-console": "off",
     "import/prefer-default-export": "off",
     "class-methods-use-this": "off",
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "no-unused-vars": [
+    "@typescript-eslint/no-unused-vars": [
       "error",
       {
         "argsIgnorePattern": "^_",

@@ -4,7 +4,7 @@ import { validateUserCreation } from '../middlewares';
 
 const users = Router();
 
-// users.get('/:id', UsersController.show);
+users.get('/:id', UsersController.show);
 
 users.get('/', UsersController.list);
 

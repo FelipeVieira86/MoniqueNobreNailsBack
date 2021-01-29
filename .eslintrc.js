@@ -15,7 +15,14 @@ module.exports = {
     "import/prefer-default-export": "off",
     "class-methods-use-this": "off",
     "@typescript-eslint/naming-convention": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ],
   },
 };
 

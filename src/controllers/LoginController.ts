@@ -11,10 +11,10 @@ export default {
       const existingUsers = await usersRepository.findOneOrFail({ where: { login, password } });
       const { password: _, ...userInfo } = existingUsers;
 
-      return res.status(200).json({ login: true, userInfo });
+      return res.status(200).json({ userInfo });
     } catch (err) {
       if (err.name === 'EntityNotFound') {
-        res.status(409).json({ login: false, message: 'Usuário e/ou senha inválidos' });
+        res.status(409).json({ message: 'Usuário e/ou senha inválidos' });
       }
       return res.status(500).json(err);
     }

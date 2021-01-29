@@ -4,8 +4,10 @@ import { validateUserCreation } from '../middlewares';
 
 const users = Router();
 
-users.post('/', validateUserCreation, UsersController.create);
+// users.get('/:id', UsersController.show);
 
 users.get('/', UsersController.list);
+
+users.post('/', validateUserCreation, UsersController.create);
 
 export default users;

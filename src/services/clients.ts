@@ -1,5 +1,5 @@
 import { getRepository, Like } from 'typeorm';
-import { ICreateClientData, ValidationErrors, ValidationErrors } from '../types';
+import { ICreateClientData } from '../types';
 import { Clients } from '../models';
 
 export default {
@@ -26,14 +26,9 @@ export default {
 
     return client;
   },
-  async deleteClient(id: string, userInfo: { admin : boolean }): Promise<any> {
+  async deleteClient(id: string): Promise<void> {
     const clientsRepository = getRepository(Clients);
     await clientsRepository.findOneOrFail({ where: { id } });
-    if (userInfo.admin) {
-      const deletedUser = await clientsRepository.delete(id);
-      return deletedUser;
-    }
-
-    throw Error('Unauthorized');
+    await clientsRepository.delete(id);
   },
 };

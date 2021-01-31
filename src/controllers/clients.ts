@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { verifyToken } from '../auth';
 import { clientServices } from '../services';
 
 import { clientsView } from '../views';
@@ -36,14 +35,7 @@ export default {
   },
   async exclude(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { authorization } = req.headers;
-    if (authorization) {
-      const verifiedUserInfo = verifyToken(authorization);
-      const user: any = verifiedUserInfo;
-      await clientServices.deleteClient(id, user);
-      res.status(203).json({ message: 'Cliente deletado com sucesso' });
-    }
-
-    throw Error('Unauthorized');
+    await clientServices.deleteClient(id);
+    return res.status(203).json({ message: 'Cliente deletado com sucesso' });
   },
 };

@@ -14,15 +14,19 @@ const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   }
 
   if (err.name === 'EntityNotFound') {
-    res.status(409).json({ message: 'Não encontrado' });
+    return res.status(409).json({ message: 'Não encontrado' });
+  }
+
+  if (err.name === 'JsonWebTokenError') {
+    return res.status(401).json({ message: 'Não autorizado' });
   }
 
   if (err.message === 'Unauthorized') {
-    res.status(401).json({ message: 'Não autorizado' });
+    return res.status(401).json({ message: 'Não autorizado' });
   }
 
   if (err.message === 'UserNotFound') {
-    res.status(401).json({ message: 'Usuário e/ou senha inválidos' });
+    return res.status(401).json({ message: 'Usuário e/ou senha inválidos' });
   }
 
   return res.status(500).json({ message: 'Hamm, acho que algo deu errado, né?' });

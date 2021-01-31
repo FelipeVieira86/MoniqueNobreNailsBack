@@ -27,14 +27,9 @@ export default {
 
     return userInfo;
   },
-  async deleteUser(id: string, userInfo: { admin : boolean }): Promise<any> {
+  async deleteUser(id: string): Promise<void> {
     const usersRepository = getRepository(Users);
     await usersRepository.findOneOrFail({ where: { id } });
-    if (userInfo.admin) {
-      const deletedUser = await usersRepository.delete(id);
-      return deletedUser;
-    }
-
-    throw Error('Unauthorized');
+    await usersRepository.delete(id);
   },
 };

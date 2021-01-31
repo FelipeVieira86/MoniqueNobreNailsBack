@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { usersServices } from '../services';
-import { verifyToken } from '../auth';
 
 export default {
   async create(req: Request, res: Response): Promise<Response> {
@@ -24,14 +23,7 @@ export default {
   },
   async exclude(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { authorization } = req.headers;
-    if (authorization) {
-      const verifiedUserInfo = verifyToken(authorization);
-      const user: any = verifiedUserInfo;
-      await usersServices.deleteUser(id, user);
-      res.status(203).json({ message: 'Usuário deletado com sucesso' });
-    }
-
-    throw Error('Unauthorized');
+    await usersServices.deleteUser(id);
+    return res.status(203).json({ message: 'Usuário deletado com sucesso' });
   },
 };

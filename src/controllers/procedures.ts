@@ -18,14 +18,7 @@ export default {
   },
   async exclude(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const { authorization } = req.headers;
-    if (authorization) {
-      const verifiedUserInfo = verifyToken(authorization);
-      const user: any = verifiedUserInfo;
-      await procedureServices.deleteProcedure(id, user);
-      res.status(203).json({ message: 'Procedimento deletado com sucesso' });
-    }
-
-    throw Error('Unauthorized');
+    await procedureServices.deleteProcedure(id);
+    return res.status(203).json({ message: 'Procedimento deletado com sucesso' });
   },
 };

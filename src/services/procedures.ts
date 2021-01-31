@@ -13,14 +13,9 @@ export default {
 
     return newProcedure;
   },
-  async deleteProcedure(id: string, userInfo: { admin : boolean }): Promise<any> {
+  async deleteProcedure(id: string): Promise<void> {
     const proceduresRepository = getRepository(Procedures);
     await proceduresRepository.findOneOrFail({ where: { id } });
-    if (userInfo.admin) {
-      const deletedProcedure = await proceduresRepository.delete(id);
-      return deletedProcedure;
-    }
-
-    throw Error('Unauthorized');
+    await proceduresRepository.delete(id);
   },
 };

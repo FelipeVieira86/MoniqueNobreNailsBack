@@ -1,12 +1,5 @@
 import Procedures from '../models/Procedures';
-
-export interface IProcedureView {
-  id: number
-  day: string
-  type: string
-  value: string
-  method: string
-}
+import { IProcedureView } from '../types';
 
 export default {
 

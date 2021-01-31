@@ -1,14 +1,6 @@
 import Clients from '../models/Clients';
-import ProceduresView, { IProcedureView } from './proceduresView';
-
-export interface IClientView {
-  id: number
-  name: string
-  birthdate: string
-  email: string
-  phone: string
-  procedures: IProcedureView[]
-}
+import ProceduresView from './proceduresView';
+import { IClientView } from '../types';
 
 export default {
 

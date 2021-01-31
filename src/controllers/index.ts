@@ -1,7 +1,7 @@
-import ClientsController from './ClientsController';
-import UsersController from './UsersController';
-import ProceduresController from './ProceduresController.';
-import LoginController from './LoginController';
+import ClientsController from './clients';
+import UsersController from './users';
+import ProceduresController from './procedures';
+import LoginController from './login';
 
 export {
   ClientsController, UsersController, ProceduresController, LoginController,

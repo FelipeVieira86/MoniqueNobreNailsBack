@@ -7,7 +7,7 @@ import './database/connection';
 import routes from './routes';
 import { errorHandler } from './errors';
 
-const PORT = 3333;
+const PORT = process.env.PORT || 3333;
 const app = express();
 
 app.use(cors());

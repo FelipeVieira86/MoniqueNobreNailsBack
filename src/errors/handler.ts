@@ -1,9 +1,6 @@
 import { ErrorRequestHandler } from 'express';
 import { ValidationError } from 'yup';
-
-interface ValidationErrors {
-  [key: string]: string[];
-}
+import { ValidationErrors } from '../types';
 
 const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   console.error('errrrouuuu', err);
@@ -17,7 +14,15 @@ const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   }
 
   if (err.name === 'EntityNotFound') {
-    res.status(409).json({ message: 'Usuário e/ou senha inválidos' });
+    res.status(409).json({ message: 'Não encontrado' });
+  }
+
+  if (err.message === 'Unauthorized') {
+    res.status(401).json({ message: 'Não autorizado' });
+  }
+
+  if (err.message === 'UserNotFound') {
+    res.status(401).json({ message: 'Usuário e/ou senha inválidos' });
   }
 
   return res.status(500).json({ message: 'Hamm, acho que algo deu errado, né?' });

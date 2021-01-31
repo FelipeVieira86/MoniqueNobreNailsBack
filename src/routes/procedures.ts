@@ -1,9 +1,10 @@
 import { Router } from 'express';
 
 import { ProceduresController } from '../controllers';
+import { validateProcedureCreation, verifyAuth } from '../middlewares';
 
 const procedures = Router();
 
-procedures.post('/', ProceduresController.create);
+procedures.post('/', verifyAuth, validateProcedureCreation, ProceduresController.create);
 
 export default procedures;

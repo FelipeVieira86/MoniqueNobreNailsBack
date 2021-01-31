@@ -1,1 +1,1 @@
-export default 'Moniket';
+export default process.env.SECRET;

@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
-import { getRepository, Like } from 'typeorm';
+import { verifyToken } from '../auth';
+import { clientServices } from '../services';
 
-import { Clients } from '../models';
 import { clientsView } from '../views';
-import { createClientSchema } from '../validations';
 
 export default {
   async create(req: Request, res: Response): Promise<Response> {
@@ -11,16 +10,11 @@ export default {
       name, email, phone, birthdate,
     } = req.body;
 
-    const clientsRepository = getRepository(Clients);
-
     const data = {
       name, email, phone, birthdate, procedures: [],
     };
 
-    await createClientSchema.validate(data, { abortEarly: false });
-    const newClient = clientsRepository.create(data);
-
-    await clientsRepository.save(newClient);
+    const newClient = await clientServices.createClient(data);
 
     return res.status(201).json(clientsView.render(newClient));
   },
@@ -29,18 +23,27 @@ export default {
       name = '',
     } = req.body;
 
-    const clientsRepository = getRepository(Clients);
-
-    const clientsList = await clientsRepository.find({ where: { name: Like(`%${name}%`) }, relations: ['procedures'] });
+    const clientsList = await clientServices.getClientList(name);
 
     return res.status(200).json(clientsView.renderMany(clientsList));
   },
   async show(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 
-    const clientsRepository = getRepository(Clients);
+    const client = await clientServices.getOneClient(id);
 
-    const client = await clientsRepository.findOneOrFail({ where: { id }, relations: ['procedures'] });
     return res.status(200).json(clientsView.render(client));
+  },
+  async exclude(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const { authorization } = req.headers;
+    if (authorization) {
+      const verifiedUserInfo = verifyToken(authorization);
+      const user: any = verifiedUserInfo;
+      await clientServices.deleteClient(id, user);
+      res.status(203).json({ message: 'Cliente deletado com sucesso' });
+    }
+
+    throw Error('Unauthorized');
   },
 };

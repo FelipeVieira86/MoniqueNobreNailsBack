@@ -1,12 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
 import { getRepository } from 'typeorm';
-import Users from '../models/Users';
+import { Users } from '../models';
+import { createUserSchema } from '../validations';
 
 async function validateUserCreation(req: Request, res: Response, next: NextFunction): Promise<any> {
   const {
-    email, login,
+    name, email, login, password, admin,
   } = req.body;
+
+  const data = {
+    name, email, login, password, admin,
+  };
+
+  await createUserSchema.validate(data, { abortEarly: false });
+
   const usersRepository = getRepository(Users);
+
   const foundUserEmail = await usersRepository.findOne({ email });
   const foundUserLogin = await usersRepository.findOne({ login });
 

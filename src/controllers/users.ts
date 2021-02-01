@@ -26,4 +26,10 @@ export default {
     await usersServices.deleteUser(id);
     return res.status(203).json({ message: 'Usuário deletado com sucesso' });
   },
+  async update(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    await usersServices.updateUser(id, req.body);
+    return res.status(203).json({ message: 'Usuário atualizado com sucesso' });
+  },
 };

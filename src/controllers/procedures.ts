@@ -20,4 +20,10 @@ export default {
     await procedureServices.deleteProcedure(id);
     return res.status(203).json({ message: 'Procedimento deletado com sucesso' });
   },
+  async update(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    await procedureServices.updateProcedure(id, req.body);
+    return res.status(203).json({ message: 'Procedimento atualizado com sucesso' });
+  },
 };

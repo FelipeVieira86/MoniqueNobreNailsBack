@@ -32,4 +32,9 @@ export default {
     await usersRepository.findOneOrFail({ where: { id } });
     await usersRepository.delete(id);
   },
+  async updateUser(id: string, data: ICreateUserData): Promise<void> {
+    const usersRepository = getRepository(Users);
+    await usersRepository.findOneOrFail({ where: { id } });
+    await usersRepository.update(id, data);
+  },
 };

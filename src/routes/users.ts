@@ -12,4 +12,6 @@ users.post('/', verifyAuth, validateUserCreation, UsersController.create);
 
 users.delete('/:id', verifyAuth, UsersController.exclude);
 
+users.put('/:id', verifyAuth, UsersController.update);
+
 export default users;

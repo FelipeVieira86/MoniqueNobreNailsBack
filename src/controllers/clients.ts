@@ -38,4 +38,10 @@ export default {
     await clientServices.deleteClient(id);
     return res.status(203).json({ message: 'Cliente deletado com sucesso' });
   },
+  async update(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    await clientServices.updateClient(id, req.body);
+    return res.status(203).json({ message: 'Cliente atualizado com sucesso' });
+  },
 };

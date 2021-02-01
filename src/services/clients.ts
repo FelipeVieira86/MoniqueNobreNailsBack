@@ -31,4 +31,9 @@ export default {
     await clientsRepository.findOneOrFail({ where: { id } });
     await clientsRepository.delete(id);
   },
+  async updateClient(id: string, data: ICreateClientData): Promise<void> {
+    const clientsRepository = getRepository(Clients);
+    await clientsRepository.findOneOrFail({ where: { id } });
+    await clientsRepository.update(id, data);
+  },
 };

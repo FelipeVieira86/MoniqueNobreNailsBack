@@ -21,6 +21,10 @@ const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
     return res.status(401).json({ message: 'Não autorizado' });
   }
 
+  if (err.name === 'TokenExpiredError') {
+    return res.status(401).json({ message: 'Token expirado' });
+  }
+
   if (err.message === 'Unauthorized') {
     return res.status(401).json({ message: 'Não autorizado' });
   }

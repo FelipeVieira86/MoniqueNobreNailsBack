@@ -18,4 +18,9 @@ export default {
     await proceduresRepository.findOneOrFail({ where: { id } });
     await proceduresRepository.delete(id);
   },
+  async updateProcedure(id: string, data: ICreateProcedureData): Promise<void> {
+    const proceduresRepository = getRepository(Procedures);
+    await proceduresRepository.findOneOrFail({ where: { id } });
+    await proceduresRepository.update(id, data);
+  },
 };

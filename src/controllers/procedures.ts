@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { procedureServices } from '../services';
-import { verifyToken } from '../auth';
 
 export default {
   async create(req: Request, res: Response): Promise<Response> {

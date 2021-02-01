@@ -7,7 +7,7 @@ async function validateClientCreation(
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> {
+): Promise<Response | void> {
   const {
     name, email, phone, birthdate,
   } = req.body;

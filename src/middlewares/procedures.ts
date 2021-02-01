@@ -5,7 +5,7 @@ async function validateProcedureCreation(
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> {
+): Promise<void> {
   const {
     day, method, type, value, client,
   } = req.body;

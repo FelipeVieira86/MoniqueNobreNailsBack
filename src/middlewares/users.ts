@@ -3,7 +3,11 @@ import { getRepository } from 'typeorm';
 import { Users } from '../models';
 import { createUserSchema } from '../validations';
 
-async function validateUserCreation(req: Request, res: Response, next: NextFunction): Promise<any> {
+async function validateUserCreation(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<Response | void> {
   const {
     name, email, login, password, admin,
   } = req.body;
